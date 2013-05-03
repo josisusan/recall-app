@@ -4,5 +4,5 @@ source :rubygems
 gem "sinatra"
 gem "shotgun"
 gem "sqlite3"
-gem "datamapper"
+gem "data_mapper"
 gem "dm-sqlite-adapter"
