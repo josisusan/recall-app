@@ -4,3 +4,18 @@
     <input type="submit" value="Store Note">
   </form>
 </section>
+
+<div id="show_notes">
+  <% @notes.each do |note| %>
+    <article <%= 'class="complete"' if note.complete %> >
+      <p>
+        <%= note.content %>
+        <span><a href="/<%= note.id %>/edit">[edit]</a></span>
+        <p class="links">
+          <a href="/<%= note.id %>/complete">&#8623;</a>
+        </p>
+        <p class="meta">Created: <%= note.created_at %></p>
+      </p>
+    </article>
+  <% end %>
+</div>
