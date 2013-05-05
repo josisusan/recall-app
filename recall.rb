@@ -2,6 +2,9 @@ require 'rubygems'
 require 'sinatra'
 require 'data_mapper'
 
+SITE TITLE = "Recall App"
+SITE DESCRIPTION = "remember me"
+
 DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/recall.db")
 
 class Note
@@ -14,6 +17,11 @@ class Note
 end
 
 DataMapper.finalize.auto_upgrade!
+
+helpers do
+  include Rack::Utils
+  alias_method :h, :escape_html
+end
 
 get '/' do
   @notes = Note.all :order => :id.desc
@@ -28,6 +36,11 @@ post '/' do
   note.updated_at = Time.now
   note.save
   redirect '/'
+end
+
+get '/rss.xml' do
+  @notes = Note.all :order => :id.desc
+  builder :rss
 end
 
 get '/:id/edit' do
